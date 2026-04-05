@@ -51,15 +51,28 @@
         <%}%>
       </ul>
       <div class=" border-2 border-danger w-auto">
-        <form class="d-flex" role="search">
-          <input
-            class="form-control me-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-          />
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+        <form action="/listings" method="GET" class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="input-group shadow-sm rounded-pill overflow-hidden">
+        <span class="input-group-text bg-white border-0 ps-4">
+          <i class="fa-solid fa-magnifying-glass text-secondary"></i>
+        </span>
+
+        <input
+          type="text"
+          name="search"
+          class="form-control border-0 py-3"
+          placeholder="Search by location or title..."
+        >
+
+        <button class="btn btn-danger px-4 fw-semibold" type="submit">
+          Search
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
       </div>
     </div>
   </div>

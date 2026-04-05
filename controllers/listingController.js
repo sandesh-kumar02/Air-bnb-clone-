@@ -5,8 +5,31 @@ import geoCode from "../utils/geoCode.js";
 const router = express.Router();
 
 export const allListings = async (req, res) => {
-  let alllistings = await Listing.find({});
-  res.render("listings/index.ejs", { alllistings });
+  try {
+    const { search, category, minPrice, maxPrice } = req.query;
+    let filter = {};
+
+    if (search) {
+      filter.$or = [
+        { title: { $regex: search, $options: "i" } },
+        { location: { $regex: search, $options: "i" } },
+        { country: { $regex: search, $options: "i" } },
+      ];
+    }
+    if (minPrice || maxPrice) {
+      filter.price = {};
+      if (minPrice) {
+        filter.price.$gte = Number(minPrice);
+      }
+      if (maxPrice) {
+        filter.price.$lte = Number(maxPrice);
+      }
+    }
+    const listings = await Listing.find(filter);
+    res.render("listings/index.ejs", { listings });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const showListings = async (req, res) => {
@@ -92,7 +115,7 @@ export const updateListing = async (req, res) => {
         coordinates,
       },
     },
-    { new: true }
+    { new: true },
   );
   //lskgf
   if (typeof req.file !== "undefined") {
