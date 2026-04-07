@@ -1,10 +1,5 @@
-
 import { listingSchema, reviewSchema } from "../schema.js";
-import {ExpressError} from "../utils/ExpressError.js";
-
-
-
-
+import { ExpressError } from "../utils/ExpressError.js";
 
 export const validateRequest = (schema) => {
   return (req, res, next) => {
